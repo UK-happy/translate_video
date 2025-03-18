@@ -59,9 +59,17 @@ class SubtitleExtractorGUI(QWidget):
 
             if frame_count % 30 == 0:  # 30フレームごとに解析
                 gray = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
-                text = pytesseract.image_to_string(gray, lang='eng')
-                if text.strip():
-                    subtitles += text + "\n"
+                blurred = cv2.GaussianBlur(gray, (5, 5), 0)
+                _, thresh = cv2.threshold(blurred, 150, 255, cv2.THRESH_BINARY_INV)
+                
+                contours, _ = cv2.findContours(thresh, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
+                for contour in contours:
+                    x, y, w, h = cv2.boundingRect(contour)
+                    if h > 20 and w > 50 and y > frame.shape[0] // 2:  # 下部の字幕を狙う
+                        roi = gray[y:y+h, x:x+w]
+                        text = pytesseract.image_to_string(roi, lang='eng')
+                        if text.strip():
+                            subtitles += text + "\n"
 
             frame_count += 1
 
