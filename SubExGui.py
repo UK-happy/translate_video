@@ -37,11 +37,16 @@ class SubtitleExtractorGUI(QWidget):
         self.setGeometry(100, 100, 500, 400)
 
     def select_video(self):
-        file_dialog = QFileDialog()
-        file_path, _ = file_dialog.getOpenFileName(self, "動画を選択", "", "Video Files (*.mp4 *.avi *.mov)")
-        if file_path:
-            self.label.setText(f"選択された動画: {file_path}")
-            self.video_path = file_path
+        try:
+            file_dialog = QFileDialog()
+            file_path, _ = file_dialog.getOpenFileName(self, "動画を選択", "", "Video Files (*.mp4 *.avi *.mov)")
+            if file_path:
+                self.label.setText(f"選択された動画: {file_path}")
+                self.video_path = file_path
+            else:
+                self.label.setText("動画が選択されませんでした。")
+        except Exception as e:
+            self.label.setText(f"エラー: {str(e)}")
 
     def extract_subtitles(self):
         if hasattr(self, 'video_path'):
