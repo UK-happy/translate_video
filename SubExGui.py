@@ -73,7 +73,7 @@ class SubtitleExtractorGUI(QWidget):
                         roi = gray[y:y+h, x:x+w]
                         text = pytesseract.image_to_string(roi, lang='eng')
                         if text.strip():
-                            subtitles += text + "\n"
+                            subtitles.append(text.strip())
 
             frame_count += 1
 
@@ -86,19 +86,26 @@ class SubtitleExtractorGUI(QWidget):
             self.text_area.setText("翻訳する字幕がありません。")
             return
         
-        params = {
-            "auth_key": DEEPL_API_KEY,
-            "text": original_text,
-            "target_lang": "JA"
-        }
-        response = requests.post(DEEPL_API_URL, data=params)
-        
-        if response.status_code == 200:
-            translated_text = response.json()["translations"][0]["text"]
-            self.text_area.setText(translated_text)
-        else:
-            self.text_area.setText("翻訳に失敗しました。")
-            
+        lines = original_text.split("\n")
+        translated_lines = []
+
+        for line in lines:
+            if line.strip():
+                params = {
+                    "auth_key": DEEPL_API_KEY,
+                    "text": line.strip(),
+                    "target_lang": "JA"
+                }
+                response = requests.post(DEEPL_API_URL, data=params)
+                
+                if response.status_code == 200:
+                    translated_lines.append(response.json()["translations"][0]["text"])
+                else:
+                    translated_lines.append("[翻訳エラー]")
+
+        self.text_area.setText("\n".join(translated_lines))
+
+
 
 if __name__ == "__main__":
     app = QApplication(sys.argv)
