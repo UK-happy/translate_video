@@ -1,0 +1,19 @@
+# Python関連
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+venv/
+.env
+
+# PyQt関連
+*.qrc
+*.ui
+
+# APIキーや環境設定
+config.json
+.env
+
+# キャッシュやログ
+*.log
+cache/
