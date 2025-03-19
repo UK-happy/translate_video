@@ -2,10 +2,13 @@ import sys
 import cv2
 import pytesseract
 import requests
+from dotenv import load_dotenv
+import os
 from PyQt6.QtWidgets import QApplication, QWidget, QVBoxLayout, QPushButton, QLabel, QTextEdit, QFileDialog
 from PyQt6.QtCore import Qt
 
-DEEPL_API_KEY = "e5369f2d-f6aa-4548-bef4-4e28a34cd053:fx"  # DeepL APIキーを設定
+load_dotenv()
+DEEPL_API_KEY = os.getenv("DEEPL_API_KEY")
 DEEPL_API_URL = "https://api-free.deepl.com/v2/translate"
 
 class SubtitleExtractorGUI(QWidget):
