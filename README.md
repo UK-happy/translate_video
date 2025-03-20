@@ -16,10 +16,10 @@ venv\Scripts\activate      # Windows
 pip install -r requirements.txt
 ```
 
-### 2. `config.json` に DeepL API キーを設定
-DeepL の API キーを取得し、`config.json` を作成して以下のように記述してください。
+### 2. `.env` に DeepL API キーを設定
+DeepL の API キーを取得し、`.env` を作成して以下のように記述してください。
 
-```json
+```env
 {
   "DEEPL_API_KEY": "your_deepl_api_key_here"
 }
