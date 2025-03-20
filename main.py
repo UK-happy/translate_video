@@ -4,10 +4,13 @@ import pytesseract
 import numpy as np
 import requests
 from difflib import SequenceMatcher  # 文字列の類似度を計算
+from dotenv import load_dotenv
+import os
 from PyQt6.QtWidgets import QApplication, QWidget, QVBoxLayout, QPushButton, QLabel, QTextEdit, QFileDialog
 from PyQt6.QtCore import Qt
 
-DEEPL_API_KEY = "your_deepl_api_key_here"
+load_dotenv()
+DEEPL_API_KEY = os.getenv("DEEPL_API_KEY")
 DEEPL_API_URL = "https://api-free.deepl.com/v2/translate"
 
 # Tesseractのパスを手動で指定
