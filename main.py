@@ -45,7 +45,7 @@ class SubtitleExtractorGUI(QWidget):
 
     def select_video(self):
         file_dialog = QFileDialog()
-        file_path, _ = file_dialog.getOpenFileName(self, "動画を選択", "", "Video Files (*.mp4 *.avi *.mov)")
+        file_path, _ = file_dialog.getOpenFileName(self, "動画を選択", "", "Video Files (*.mp4 *.avi *.mov *.mkv);;All Files (*)")
         if file_path:
             self.label.setText(f"選択された動画: {file_path}")
             self.video_path = file_path
