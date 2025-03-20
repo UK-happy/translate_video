@@ -1,46 +1,47 @@
-# 字幕翻訳ツール
+# Subtitle Translator GUI
 
-## 概要
-このツールは、PyQtを使用して開発されたGUIアプリケーションで、動画から埋め込まれた字幕を抽出し、自動翻訳する機能を提供します。
+このプロジェクトは、動画に埋め込まれた英語字幕を自動で抽出し、日本語に翻訳するツールです。
+PyQtを用いたGUIベースのアプリケーションで、DeepL APIを利用して翻訳を行います。
 
-## 主な機能
-- **動画の選択**: ユーザーが動画ファイルを選択
-- **字幕の抽出**: OCR（光学文字認識）を用いて動画の字幕を検出
-- **翻訳機能**: DeepL API を使用して英語の字幕を日本語に翻訳
-- **プレビュー機能**: 抽出・翻訳された字幕をGUI上で確認可能
+## 🔧 インストール方法
 
-## 動作環境
-- Python 3.x
-- PyQt6
+### 1. 必要なライブラリをインストール
+まず、Python仮想環境を作成し、必要なライブラリをインストールします。
+
+```bash
+python -m venv venv
+source venv/bin/activate  # Mac/Linux
+venv\Scripts\activate      # Windows
+
+pip install -r requirements.txt
+```
+
+### 2. `config.json` に DeepL API キーを設定
+DeepL の API キーを取得し、`config.json` を作成して以下のように記述してください。
+
+```json
+{
+  "DEEPL_API_KEY": "your_deepl_api_key_here"
+}
+```
+
+### 3. アプリを実行
+```bash
+python main.py
+```
+
+## 📌 機能一覧
+✅ 動画の字幕を OCR で抽出  
+✅ DeepL API で字幕を翻訳  
+✅ GUI で簡単に操作可能  
+
+## ⚡ 使用技術
+- Python
 - OpenCV
+- PyQt
 - pytesseract
-- requests
-- dotenv（APIキー管理用）
+- DeepL API
 
-## インストール
-1. 必要なライブラリをインストール
-   ```sh
-   pip install PyQt6 opencv-python pytesseract requests python-dotenv
-
-2. .env ファイルを作成し、DeepL APIキーを設定
-   ```plaintext
-   DEEPL_API_KEY=your_deepl_api_key_here
-
-## 使い方
-1. アプリを起動
-   ```sh
-   python main.py
-
-2. 「動画を選択」ボタンで動画ファイルを選ぶ
-3. 「字幕を抽出」ボタンを押して字幕を取得
-4. 「翻訳」ボタンを押して日本語に翻訳
-
-## 注意事項
-- DeepLの無料APIキーには使用回数制限があります。
-- OCR精度は動画の品質や字幕のフォントによって変動します。
-
-## ライセンス 
-このプロジェクトはMITライセンスのもとで提供されます。
-
-
+## 📝 ライセンス
+このプロジェクトは MIT ライセンスのもとで提供されます。
 
