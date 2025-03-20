@@ -42,7 +42,7 @@ class SubtitleExtractorGUI(QWidget):
     def select_video(self):
         try:
             file_dialog = QFileDialog()
-            file_path, _ = file_dialog.getOpenFileName(self, "動画を選択", "", "Video Files (*.mp4 *.avi *.mov)")
+            file_path, _ = file_dialog.getOpenFileName(self, "動画を選択", "", "Video Files (*.mp4 *.avi *.mov *.mkv);;All Files (*)")
             if file_path:
                 self.label.setText(f"選択された動画: {file_path}")
                 self.video_path = file_path
@@ -69,7 +69,7 @@ class SubtitleExtractorGUI(QWidget):
             if not ret:
                 break
 
-            if frame_count % 30 == 0:  # 30フレームごとに解析
+            if frame_count % 60 == 0:  # 60フレームごとに解析
                 gray = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
                 blurred = cv2.GaussianBlur(gray, (5, 5), 0)
                 _, thresh = cv2.threshold(blurred, 150, 255, cv2.THRESH_BINARY_INV)
