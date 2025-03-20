@@ -10,6 +10,9 @@ from PyQt6.QtCore import Qt
 DEEPL_API_KEY = "your_deepl_api_key_here"
 DEEPL_API_URL = "https://api-free.deepl.com/v2/translate"
 
+# Tesseractのパスを手動で指定
+pytesseract.pytesseract.tesseract_cmd = r"C:\Program Files\Tesseract-OCR\tesseract.exe"
+
 class SubtitleExtractorGUI(QWidget):
     def __init__(self):
         super().__init__()
@@ -76,7 +79,7 @@ class SubtitleExtractorGUI(QWidget):
                 contours, _ = cv2.findContours(thresh, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
                 for contour in contours:
                     x, y, w, h = cv2.boundingRect(contour)
-                    if h > 20 and w > 50 and y > frame.shape[0] // 2:  # 下部の字幕を狙う
+                    if h > 20 and w > 50 and y < frame.shape[0] // 4:  # 下部の字幕を狙う
                         roi = gray[y:y+h, x:x+w]
                         text = pytesseract.image_to_string(roi, lang='eng').strip()
                         
