@@ -68,7 +68,7 @@ class SubtitleExtractorGUI(QWidget):
             ret, frame = cap.read()
             if not ret:
                 break
-
+                
             if frame_count % 60 == 0:  # 60フレームごとに解析
                 gray = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
                 blurred = cv2.GaussianBlur(gray, (5, 5), 0)
